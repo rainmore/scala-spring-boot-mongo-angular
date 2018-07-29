@@ -36,7 +36,7 @@ node {
 
 task clean(type: Delete) {
 	group 'build client'
-	delete "${rootDir}/ui/dist", "${rootDir}/api/src/main/resources/static"
+    delete "${rootDir}/ui/dist", fileTree(dir: "${rootDir}/api/src/main/resources/static" , include: "**/*.*")
 }
 
 task cleanNpm(type: Delete) {

@@ -48,10 +48,10 @@
     "webpack-dev-server": "^3.1.5"
   },
   "scripts": {
-    "build": "webpack -p --mode production",
-    "start": "NODE_ENV='dev' webpack-dev-server -d --mode development --host 127.0.0.1 --port 3000",
-    "buildToSpring": "webpack -p --mode production --output-path=../api/src/main/resources/static --output-public-path=/",
-    "buildToSpringWatch": "NODE_ENV='dev' webpack -d --watch --info-verbosity verbose --mode development --output-path=../api/src/main/resources/static --output-public-path=/",
+    "build": "NODE_ENV='production' webpack -p --mode production",
+    "start": "NODE_ENV='development' webpack-dev-server -d --mode development --host 127.0.0.1 --port 3000",
+    "buildToSpring": "NODE_ENV='production' webpack -p --mode production --output-path=../api/src/main/resources/static --output-public-path=/",
+    "buildToSpringWatch": "NODE_ENV='development' webpack -d --mode development --watch --info-verbosity verbose  --output-path=../api/src/main/resources/static --output-public-path=/",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {},
