@@ -1,0 +1,73 @@
+buildscript {
+    ext {
+        gradleNodeVersion = '1.2.0'
+    }
+
+    repositories {
+        mavenCentral()
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+
+    dependencies {
+        classpath "com.moowork.gradle:gradle-node-plugin:$gradleNodeVersion"
+    }
+}
+
+apply plugin: 'com.moowork.node'
+
+ext {
+	nodeDir = projectDir.toPath().resolve("node")
+	distDir = projectDir.toPath().resolve("dist")
+}
+
+node {
+	version = '10.6.0'
+	npmVersion = '6.1.0'
+	download = true
+	workDir = projectDir.toPath().resolve("node").toFile()
+	nodeModulesDir = projectDir.toPath().toFile()
+//    workDir = file("${rootDir}/ui/node")
+//    nodeModulesDir = file("${rootDir}/ui")
+}
+
+//------------------------------------------------------------------------------------------------------------------------
+//    Tasks - NPM
+//------------------------------------------------------------------------------------------------------------------------
+
+task clean(type: Delete) {
+	group 'build client'
+	delete "${rootDir}/ui/dist", "${rootDir}/api/src/main/resources/static"
+}
+
+task cleanNpm(type: Delete) {
+	group 'build client'
+	dependsOn 'clean'
+	delete "${rootDir}/ui/node", "${rootDir}/ui/node_modules"
+}
+
+task npmUpdate {
+	group 'build client'
+	dependsOn 'npm_update'
+}
+
+
+//------------------------------------------------------------------------------------------------------------------------
+//    Tasks - Standalone client
+//------------------------------------------------------------------------------------------------------------------------
+
+task bootRun(type: NpmTask, dependsOn: npmInstall) {
+	group 'application'
+	description = "Compile client side folder for production"
+    args = ['run', 'buildToSpringWatch']
+//    finalizedBy 'npm_shutdown'
+}
+
+//------------------------------------------------------------------------------------------------------------------------
+//    Tasks - Integrated client
+//------------------------------------------------------------------------------------------------------------------------
+
+task build(type: NpmTask, dependsOn: npmInstall) {
+	group 'build client'
+	description = 'Compile client side folder for development'
+	args = ['run', 'buildToSpring']
+}
