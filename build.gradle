@@ -22,7 +22,7 @@ task bootIntegrated(type: GradleBuild) {
 
 task boot(type: GradleBuild) {
     group 'application'
-    setTasks([':ui:bootRun', ':api:bootRun'])
+    setTasks([':ui:clean', ':ui:bootRun', ':api:bootRun'])
 }
 
 //------------------------------------------------------------------------------------------------------------------------
