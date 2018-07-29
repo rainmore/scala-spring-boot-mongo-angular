@@ -21,8 +21,8 @@ ext {
 }
 
 node {
-	version = '10.6.0'
-	npmVersion = '6.1.0'
+	version = '10.7.0'
+	npmVersion = '6.2.0'
 	download = true
 	workDir = projectDir.toPath().resolve("node").toFile()
 	nodeModulesDir = projectDir.toPath().toFile()
