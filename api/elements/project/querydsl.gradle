@@ -1,0 +1,32 @@
+apply plugin: 'com.ewerk.gradle.plugins.querydsl'
+
+configurations {
+    provided
+}
+
+dependencies {
+    // query dsl
+    provided group: 'com.querydsl', name: 'querydsl-apt', version: '4.2.1'
+
+    // mongodb
+    compile group: 'com.querydsl', name: 'querydsl-mongodb', version: '4.2.1'
+
+    // JPA
+//    compile group: 'com.querydsl', name: 'querydsl-jpa', version: '4.2.1'
+//    compile  group: 'com.querydsl', name: 'querydsl-sql', version: '4.2.1'
+}
+
+querydsl {
+    springDataMongo = true
+//    jpa = true
+}
+
+// fixed generated Q classes loading issue for IntelliJ IDEA
+sourceSets.main.java.srcDirs += querydsl.querydslSourcesDir
+
+idea {
+    module {
+        generatedSourceDirs += file(querydsl.querydslSourcesDir)
+        sourceDirs += file(querydsl.querydslSourcesDir)
+    }
+}

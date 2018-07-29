@@ -1,0 +1,57 @@
+buildscript {
+	ext {
+		springBootVersion     = '2.0.3.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+	}
+}
+
+apply plugin: 'application'
+
+group = rootProject.group
+version = rootProject.version
+
+apply from: 'project/assemble.gradle'
+apply from: 'project/scala.gradle'
+apply from: 'project/common.gradle'
+apply from: 'project/jacksonJson.gradle'
+apply from: 'project/spring.gradle'
+apply from: 'project/mongodb.gradle'
+apply from: 'project/logging.gradle'
+apply from: 'project/thymeleaf.gradle'
+
+dependencies {
+	compile project('elements')
+}
+
+
+mainClassName = [group, 'Application'].join('.')
+
+// stop distZip, distTar and stop upload zip and tar
+[distZip, distTar].each { task ->
+	configurations.archives.artifacts.removeAll {
+		it.class.simpleName == "ArchivePublishArtifact" && it.archiveTask == task
+	}
+	task.enabled = false
+}
+
+idea {
+	module {
+		// fix IDEA out folder
+		outputDir file('build/classes/scala/main')
+		testOutputDir file('build/classes/scala/test')
+		resourceDirs += file('build/resources/main')
+		testResourceDirs += file('build/resources/test')
+	}
+}
+
+test {
+	useJUnitPlatform {
+//		includeTags 'fast', 'smoke & feature-a'
+		includeEngines 'junit-jupiter'
+	}
+}

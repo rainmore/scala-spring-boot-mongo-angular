@@ -1,0 +1,38 @@
+apply plugin: 'scala'
+
+ext.sclArt = { String artifactId ->
+    sprintf('%s_%s', artifactId, project.ext.get('scala.branch'))
+}
+
+dependencies {
+    compile group: 'org.scala-lang', name: 'scala-library', version: project.ext.get('scala.version')
+    compile group: 'org.scala-lang.modules', name: 'scala-java8-compat_' + project.ext.get('scala.branch'), version: project.ext.get('scala.modules.java8-compat.version')
+}
+
+tasks.withType(ScalaCompile) {
+
+    configure(scalaCompileOptions.forkOptions) {
+        memoryMaximumSize = '1g'
+    }
+
+    scalaCompileOptions.metaClass.daemonServer = true
+    scalaCompileOptions.metaClass.fork = true
+    scalaCompileOptions.metaClass.useAnt = false
+    scalaCompileOptions.metaClass.useCompileDaemon = false
+    scalaCompileOptions.metaClass.deprecation = false
+    scalaCompileOptions.metaClass.additionalParameters = ['-feature']
+
+    options.incremental = true
+    options.deprecation = false
+    options.compilerArgs += project.javaLintArgs
+
+    if (System.getenv().containsKey('ZINC_OPTS')) {
+        scalaCompileOptions.additionalParameters += System.env.ZINC_OPTS.tokenize(' ')
+    }
+}
+
+// Java/Scala cross-compilation
+//sourceSets.main.scala.srcDirs += sourceSets.main.java.srcDirs
+//sourceSets.main.java.srcDirs = []
+
+//tasks.javadocJar.from scaladoc

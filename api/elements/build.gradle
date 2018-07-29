@@ -1,0 +1,23 @@
+plugins {
+	id "com.ewerk.gradle.plugins.querydsl" version "1.0.10" apply false
+}
+
+apply plugin: 'idea'
+
+apply from: '../project/assemble.gradle'
+apply from: '../project/logging.gradle'
+apply from: '../project/mongodb.gradle'
+apply from: 'project/querydsl.gradle'
+
+
+initQuerydslSourcesDir.dependsOn 'clean'
+
+idea {
+	module {
+		// fix IDEA out folder
+		outputDir file('build/classes/java/main')
+		testOutputDir file('build/classes/java/test')
+		resourceDirs += file('build/resources/main')
+		testResourceDirs += file('build/resources/test')
+	}
+}

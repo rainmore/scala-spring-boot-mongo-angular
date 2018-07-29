@@ -1,0 +1,36 @@
+group = 'au.com.wytn.centus'
+version = '0.0.1-SNAPSHOT'
+
+
+allprojects {
+    repositories {
+        mavenCentral()
+    }
+
+    apply plugin: 'idea'
+}
+
+
+//------------------------------------------------------------------------------------------------------------------------
+//    Tasks - Application
+//------------------------------------------------------------------------------------------------------------------------
+
+task bootIntegrated(type: GradleBuild) {
+    group 'application'
+    setTasks([':ui:npmUpdate', ':ui:clean', ':ui:buildClientToSpring', ':api:bootRun'])
+}
+
+task boot(type: GradleBuild) {
+    group 'application'
+    setTasks([':ui:npmUpdate', ':ui:clean', ':ui:bootRun', ':api:bootRun'])
+}
+
+//------------------------------------------------------------------------------------------------------------------------
+//    Tasks - Init project
+//------------------------------------------------------------------------------------------------------------------------
+
+task wrapper(type: Wrapper) {
+    group 'init'
+    gradleVersion '4.9'
+    distributionType Wrapper.DistributionType.ALL
+}
