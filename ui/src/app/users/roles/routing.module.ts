@@ -3,6 +3,7 @@ import { NgModule } from "@angular/core";
 
 import { FormComponent } from './form.component';
 import { ListComponent } from './list.component';
+import { PageNotFoundComponent } from '../../errors';
 
 const routes: Routes = [
     {
@@ -12,6 +13,14 @@ const routes: Routes = [
     {
         path: 'add',
         component: FormComponent
+    },
+    {
+        path: ':id',
+        component: FormComponent
+    },
+    {
+        path: '**',
+        component: PageNotFoundComponent
     }
 ];
 

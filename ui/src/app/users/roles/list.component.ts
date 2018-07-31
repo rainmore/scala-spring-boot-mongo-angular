@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
 import { RoleService } from '../../_services/users';
-import { Role } from '../../_models/users/role';
+import { Role } from '../../_models/users';
 import { Page } from '../../_models';
 
 @Component({
@@ -28,6 +28,8 @@ export class ListComponent implements OnInit {
 
     onSelect(role: Role): void {
         this.selectedRole = role;
+        //navigation link.
+        // this.router.navigate([role.id]);
     }
 
     public load() {

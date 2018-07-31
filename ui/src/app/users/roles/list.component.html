@@ -3,12 +3,13 @@
     <div class="container">
         <h2>Users Roles</h2>
         <button routerLink="add">Add</button>
+        <button routerLink="sdfasdfadd">Not Found</button>
         <div class="row">
             <ul *ngIf="page.totalPages > 0" class="list" >
                 <li *ngFor="let role of page.content"
                     [class.selected]="role === selectedRole"
-                    (click)="onSelect(role)">
-                    <span class="badge">{{role.id}}</span> {{role.name}}
+                    routerLink="{{role.id}}">
+                    {{role.name}}
                 </li>
             </ul>
             <p *ngIf="page.totalPages == 0">No items</p>
