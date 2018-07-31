@@ -7,6 +7,9 @@ dependencies {
     compile group: 'commons-codec', name: 'commons-codec', version: '1.11'
     compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.0'
 
+    // https://mvnrepository.com/artifact/javax.validation/validation-api
+    compile group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
+
     // SSL
     compile group: 'org.bouncycastle',   name: 'bcmail-jdk15on',    version: '1.59'
 

@@ -6,6 +6,7 @@ apply plugin: 'idea'
 
 apply from: '../project/assemble.gradle'
 apply from: '../project/logging.gradle'
+apply from: '../project/common.gradle'
 apply from: '../project/mongodb.gradle'
 apply from: 'project/querydsl.gradle'
 
