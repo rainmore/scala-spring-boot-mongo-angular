@@ -1,7 +1,7 @@
 import './polyfills';
 
-import 'jquery/dist/jquery.min.js';
-
+import 'jquery/dist/jquery.slim.min';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './scss/main.scss';
 

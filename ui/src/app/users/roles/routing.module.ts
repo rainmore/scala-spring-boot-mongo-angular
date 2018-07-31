@@ -2,12 +2,12 @@
 import { NgModule } from "@angular/core";
 
 // import { UsersRoleFormComponent } from './users-role-form.component';
-import { UsersRoleListComponent } from './users-role-list.component';
+import { ListComponent } from './list.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: UsersRoleListComponent
+    component: ListComponent
   }
 ];
 
@@ -15,4 +15,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class UsersRoleRoutingModule { }
+export class RoutingModule { }

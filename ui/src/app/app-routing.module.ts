@@ -10,8 +10,8 @@ const routes: Routes = [
     // { path: '', component: HomeComponent/*, canActivate: [AuthGuard] */},
     // { path: 'roles', component: UsersRoleModule},
     {
-        path: 'users-roles',
-        loadChildren: './roles/users-role.module#UsersRoleModule'
+        path: 'users/roles',
+        loadChildren: './users/roles/roles.module#RolesModule'
     },
     // { path: 'login', component: LoginComponent },
     // { path: 'register', component: RegisterComponent },

@@ -2,24 +2,24 @@ import { NgModule }      from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule }    from '@angular/forms';
 
-import { fakeBackendProvider } from '../_helpers';
+import { fakeBackendProvider } from '../../_helpers';
+import { JwtInterceptor, ErrorInterceptor } from '../../_helpers';
 
-import { UsersRoleListComponent }  from './users-role-list.component';
-// import { UsersRoleFormComponent }  from './users-role-form.component';
-import { UsersRoleRoutingModule } from './users-role-routing.module';
+import { ListComponent }  from './list.component';
+import { FormComponent }  from './form.component';
+import { RoutingModule } from './routing.module';
 
-import { JwtInterceptor, ErrorInterceptor } from '../_helpers';
-import { RoleService } from '../_services/users';
+import { RoleService } from '../../_services/users';
 
 @NgModule({
     imports: [
         CommonModule,
         ReactiveFormsModule,
-        UsersRoleRoutingModule
+        RoutingModule
     ],
     declarations: [
-        UsersRoleListComponent
-        // UsersRoleFormComponent,
+        FormComponent,
+        ListComponent
     ],
     providers: [
         // AuthGuard,
@@ -33,4 +33,4 @@ import { RoleService } from '../_services/users';
         // fakeBackendProvider
     ]
 })
-export class UsersRoleModule { }
+export class RolesModule { }
