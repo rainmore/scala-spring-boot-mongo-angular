@@ -4,12 +4,15 @@ import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { first } from 'rxjs/operators';
 
 import { RoleService } from '../../_services/users';
-import { Role } from '../../_models';
+import { Role } from '../../_models/users';
 
-@Component({templateUrl: 'users-role-form.component.html'})
+@Component({
+    selector: 'app-users-roles-form',
+    templateUrl: 'form.component.html'
+})
 export class FormComponent implements OnInit {
     roleForm: FormGroup;
-    role: Role = {id: '1', name: 'Admin', isActive: true}
+    role: Role = new Role;
 
     loading = false;
     submitted = false;
@@ -33,7 +36,18 @@ export class FormComponent implements OnInit {
     }
 
     onSubmit() {
-
+        this.loading = true;
+        console.log(this.roleForm.valid);
+        console.log(this.roleForm.value);
+        if (this.roleForm.valid) {
+            this.roleService.save(this.roleForm.value).subscribe((response) => {
+                this.loading = false;
+                console.log(response);
+            })
+        }
+        else {
+            this.loading = false;
+        }
     }
 
     // convenience getter for easy access to form fields
@@ -41,5 +55,5 @@ export class FormComponent implements OnInit {
 
     get name() { return this.roleForm.get('name'); }
 
-    get power() { return this.roleForm.get('isActive'); }
+    get isActive() { return this.roleForm.get('isActive'); }
 }

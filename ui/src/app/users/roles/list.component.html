@@ -1,20 +1,17 @@
 ﻿<!-- main app container -->
 <div class="jumbotron">
     <div class="container">
+        <h2>Users Roles</h2>
+        <button routerLink="add">Add</button>
         <div class="row">
-            <div class="col-sm-6 offset-sm-3">
-                <button routerLink="/">Home</button>
-                <button routerLink="add">Add</button>
-            </div>
-
-            <h2>Users Roles</h2>
-            <ul class="list">
-                <li *ngFor="let role of roles"
+            <ul *ngIf="page.totalPages > 0" class="list" >
+                <li *ngFor="let role of page.content"
                     [class.selected]="role === selectedRole"
                     (click)="onSelect(role)">
                     <span class="badge">{{role.id}}</span> {{role.name}}
                 </li>
             </ul>
+            <p *ngIf="page.totalPages == 0">No items</p>
 
         </div>
     </div>

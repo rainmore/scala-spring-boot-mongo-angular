@@ -5,24 +5,17 @@ import { first } from 'rxjs/operators';
 
 import { RoleService } from '../../_services/users';
 import { Role } from '../../_models/users/role';
+import { Page } from '../../_models';
 
-console.log('It works here');
 @Component({
     selector: 'app-users-roles',
     templateUrl: 'list.component.html'
 })
 export class ListComponent implements OnInit {
 
-    roles: Role[] = [
-        {id: '1', name: 'Admin', isActive: true},
-        {id: '2', name: 'User', isActive: true}
-    ];
+    page: Page<Role> = new Page();
 
     selectedRole: Role;
-
-    loading = false;
-    submitted = false;
-    returnUrl: string;
 
     constructor(
         private router: Router,
@@ -30,11 +23,17 @@ export class ListComponent implements OnInit {
 
 
     ngOnInit() {
-
+        this.load()
     }
 
     onSelect(role: Role): void {
         this.selectedRole = role;
     }
 
+    public load() {
+        this.roleService.getAll().subscribe((data:  Page<Role>) => {
+            this.page  =  data;
+            console.log(data);
+        });
+    }
 }
