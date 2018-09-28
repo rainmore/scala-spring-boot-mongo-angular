@@ -9,7 +9,7 @@
                 <li *ngFor="let role of page.content"
                     [class.selected]="role === selectedRole"
                     routerLink="{{role.id}}">
-                    {{role.name}}
+                    {{role.name}} {{role.active}}
                 </li>
             </ul>
             <p *ngIf="page.totalPages == 0">No items</p>

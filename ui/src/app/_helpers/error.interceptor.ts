@@ -24,7 +24,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                     location.reload(true);
                     break;
                 case NOT_FOUND:
-                    this.router.navigateByUrl("**");
+                    this.router.navigateByUrl("");
                     break;
             }
 

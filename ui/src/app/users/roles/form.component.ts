@@ -7,7 +7,8 @@ import { tap } from 'rxjs/operators';
 
 import { RoleService } from '../../_services/users';
 import { Role } from '../../_models/users';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
     selector: 'app-users-roles-form',
@@ -31,7 +32,6 @@ export class FormComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        console.log(this.role);
         this.form = new FormGroup({
             'name': new FormControl(this.role.name, [
                 Validators.required,
@@ -46,10 +46,19 @@ export class FormComponent implements OnInit {
     onSubmit() {
         this.loading = true;
         if (this.form.valid) {
-            this.roleService.save(this.form.value).subscribe((response) => {
-                this.loading = false;
-                console.log(response);
-            })
+            const id = this.getId();
+            this.role = {...this.role, ...this.form.value};
+
+            if (this.role.id) {
+                this.roleService.update(this.role).subscribe((response) => {
+                    this.loading = false;
+                });
+            }
+            else {
+                this.roleService.save(this.role).subscribe((response) => {
+                    this.loading = false;
+                });
+            }
         }
         else {
             this.loading = false;
@@ -63,19 +72,29 @@ export class FormComponent implements OnInit {
 
     get isActive() { return this.form.get('isActive'); }
 
+    getId() {
+        return this.route.snapshot.paramMap.get('id');
+    }
+
     getRole() {
-        const id = this.route.snapshot.paramMap.get('id');
+        const id = this.getId();
         if (id) {
-            console.log(id);
             this.roleService.getById(id).subscribe(
                 (role: Role) => {
                     this.role = role;
                     this.form.patchValue(role);
                 },
                 error => {
-                    console.log(111);
-                    this.router.navigate(['**'])
+                    console.log('error');
+                    console.log(error);
+                    // this.router.navigate(['**'])
+                },
+                () => {
+                    console.log('completed');
+                    // 'onCompleted' callback.
+                    // No errors, route to new page here
                 }
+
             );
         }
     }
@@ -83,4 +102,5 @@ export class FormComponent implements OnInit {
     goBack(): void {
         this.location.back();
     }
+
 }
