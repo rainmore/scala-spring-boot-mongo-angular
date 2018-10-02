@@ -1,0 +1,20 @@
+version: "3.3"
+services:
+  mongo:
+    image: mongo:4.0.2
+    container_name: mongo
+    restart: always
+    logging:
+      driver: syslog
+      options:
+        tag: mongo
+    ports:
+      - 27017:27017
+      - 28017:28017
+    volumes:
+      - /data/mongodb:/data/db
+    command: mongod --auth
+    environment:
+      - MONGO_INITDB_DATABASE=centus
+      - MONGO_INITDB_ROOT_USERNAME=centus
+      - MONGO_INITDB_ROOT_PASSWORD=centus
